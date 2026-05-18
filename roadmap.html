@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Woki · Roadmap (preview)</title>
+<style>
+:root {
+  --bg: #050a14;
+  --bg-soft: #0a1226;
+  --bg-card: #0e1830;
+  --line: #1a2545;
+  --line-2: #243056;
+  --ink: #f4f6fb;
+  --ink-2: #c2cae0;
+  --ink-3: #8492b0;
+  --ink-4: #5a6889;
+
+  --done: #4ade80;
+  --done-2: #22c55e;
+  --done-deep: #16a34a;
+  --done-glow: rgba(74,222,128,0.45);
+
+  --now: #fbbf24;
+  --now-2: #f59e0b;
+  --now-deep: #d97706;
+  --now-glow: rgba(251,191,36,0.65);
+
+  --next: #4ab8ff;
+  --next-2: #0080ff;
+  --next-deep: #0066cc;
+  --next-glow: rgba(74,184,255,0.45);
+
+  --future: #a78bfa;
+  --future-2: #8b5cf6;
+  --future-glow: rgba(167,139,250,0.30);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 1200px 600px at 18% 10%, rgba(74,222,128,0.05), transparent 60%),
+    radial-gradient(ellipse 1000px 500px at 50% 50%, rgba(251,191,36,0.06), transparent 60%),
+    radial-gradient(ellipse 1200px 600px at 82% 90%, rgba(74,184,255,0.05), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 80px 24px 120px;
+}
+
+/* ============ HEADER ============ */
+.header {
+  text-align: center;
+  margin-bottom: 80px;
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--now);
+  background: rgba(251,191,36,0.10);
+  border: 1px solid rgba(251,191,36,0.30);
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 28px;
+}
+.eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--now);
+  box-shadow: 0 0 12px var(--now);
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+h1 {
+  font-size: clamp(38px, 4.6vw, 64px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 22px;
+}
+h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--now), var(--now-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.sub {
+  font-size: clamp(16px, 1.4vw, 19px);
+  color: var(--ink-2);
+  line-height: 1.6;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  border: 1px solid;
+  background: var(--bg-card);
+  transition: transform .2s ease;
+}
+.legend-item:hover { transform: translateY(-2px); }
+.legend-item .swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.legend-item.done { color: var(--done); border-color: rgba(74,222,128,0.35); }
+.legend-item.done .swatch { background: linear-gradient(135deg, var(--done), var(--done-deep)); box-shadow: 0 0 12px var(--done-glow); }
+.legend-item.now { color: var(--now); border-color: rgba(251,191,36,0.45); }
+.legend-item.now .swatch { background: linear-gradient(135deg, var(--now), var(--now-deep)); box-shadow: 0 0 12px var(--now-glow); animation: pulse-dot 2.4s ease-in-out infinite; }
+.legend-item.next { color: var(--next); border-color: rgba(74,184,255,0.35); }
+.legend-item.next .swatch { background: linear-gradient(135deg, var(--next), var(--next-deep)); box-shadow: 0 0 12px var(--next-glow); }
+.legend-item.future { color: var(--future); border-color: rgba(167,139,250,0.30); }
+.legend-item.future .swatch { background: linear-gradient(135deg, var(--future), var(--future-2)); box-shadow: 0 0 12px var(--future-glow); }
+
+/* ============ ROAD ============ */
+.road-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1400 / 760;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.road-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Stops are positioned as % within container */
+.stop {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.bubble {
+  width: clamp(72px, 7vw, 100px);
+  height: clamp(72px, 7vw, 100px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 5;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.bubble svg {
+  width: 44%;
+  height: 44%;
+  stroke: #fff;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.bubble::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: var(--bg);
+  z-index: -2;
+}
+.bubble::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: inherit;
+  z-index: -1;
+}
+
+.stop.done .bubble {
+  background: linear-gradient(135deg, var(--done), var(--done-deep));
+  box-shadow: 0 8px 32px var(--done-glow), inset 0 -3px 8px rgba(0,0,0,0.20), inset 0 3px 8px rgba(255,255,255,0.25);
+}
+.stop.now .bubble {
+  background: linear-gradient(135deg, var(--now), var(--now-deep));
+  box-shadow: 0 0 0 6px rgba(251,191,36,0.18), 0 12px 48px var(--now-glow), inset 0 -3px 8px rgba(0,0,0,0.20), inset 0 3px 8px rgba(255,255,255,0.30);
+  width: clamp(96px, 9vw, 128px);
+  height: clamp(96px, 9vw, 128px);
+  animation: now-pulse 2.8s ease-in-out infinite;
+}
+@keyframes now-pulse {
+  0%, 100% { box-shadow: 0 0 0 6px rgba(251,191,36,0.18), 0 12px 48px var(--now-glow), inset 0 -3px 8px rgba(0,0,0,0.20), inset 0 3px 8px rgba(255,255,255,0.30); }
+  50% { box-shadow: 0 0 0 14px rgba(251,191,36,0.10), 0 16px 64px rgba(251,191,36,0.85), inset 0 -3px 8px rgba(0,0,0,0.20), inset 0 3px 8px rgba(255,255,255,0.30); }
+}
+.stop.next .bubble {
+  background: linear-gradient(135deg, var(--next), var(--next-deep));
+  box-shadow: 0 8px 32px var(--next-glow), inset 0 -3px 8px rgba(0,0,0,0.20), inset 0 3px 8px rgba(255,255,255,0.25);
+}
+.stop.future .bubble {
+  background: linear-gradient(135deg, var(--future), var(--future-2));
+  box-shadow: 0 8px 28px var(--future-glow), inset 0 -3px 8px rgba(0,0,0,0.20), inset 0 3px 8px rgba(255,255,255,0.25);
+  opacity: 0.92;
+}
+
+.stop:hover .bubble { transform: scale(1.08); }
+
+/* HOY badge floating above bubble */
+.now-badge {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--now);
+  color: #1a0f00;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.now-badge::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--now);
+}
+
+/* ============ LABEL CARDS ============ */
+.label {
+  position: absolute;
+  width: clamp(180px, 18vw, 240px);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.label.above { bottom: calc(100% + 22px); }
+.label.below { top: calc(100% + 22px); }
+
+.label-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+.stop.done .label-tag { color: var(--done); background: rgba(74,222,128,0.10); border: 1px solid rgba(74,222,128,0.30); }
+.stop.now .label-tag { color: var(--now); background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.40); }
+.stop.next .label-tag { color: var(--next); background: rgba(74,184,255,0.10); border: 1px solid rgba(74,184,255,0.35); }
+.stop.future .label-tag { color: var(--future); background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.28); }
+
+.label-title {
+  font-size: clamp(14.5px, 1.15vw, 17px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+.label-desc {
+  font-size: clamp(11.5px, 0.9vw, 13.5px);
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+
+/* ============ MOBILE FALLBACK ============ */
+.mobile-stack { display: none; }
+
+@media (max-width: 920px) {
+  .road-container { display: none; }
+  .mobile-stack { display: block; margin-top: 40px; }
+  .header { margin-bottom: 40px; }
+  main { padding: 40px 20px 60px; }
+}
+
+.mobile-stack {
+  position: relative;
+}
+.mobile-stack::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 36px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--done) 0%, var(--done) 28%, var(--now) 32%, var(--now) 48%, var(--next) 52%, var(--next) 76%, var(--future) 80%, var(--future) 100%);
+  border-radius: 3px;
+}
+.m-stop {
+  position: relative;
+  padding-left: 86px;
+  margin-bottom: 32px;
+}
+.m-stop .m-bubble {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.m-stop .m-bubble svg { width: 40%; height: 40%; stroke: #fff; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.m-stop.done .m-bubble { background: linear-gradient(135deg, var(--done), var(--done-deep)); box-shadow: 0 4px 16px var(--done-glow); }
+.m-stop.now .m-bubble { background: linear-gradient(135deg, var(--now), var(--now-deep)); box-shadow: 0 0 0 4px rgba(251,191,36,0.18), 0 4px 16px var(--now-glow); }
+.m-stop.next .m-bubble { background: linear-gradient(135deg, var(--next), var(--next-deep)); box-shadow: 0 4px 16px var(--next-glow); }
+.m-stop.future .m-bubble { background: linear-gradient(135deg, var(--future), var(--future-2)); box-shadow: 0 4px 16px var(--future-glow); }
+.m-stop .m-tag { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; margin-bottom: 8px; }
+.m-stop.done .m-tag { color: var(--done); background: rgba(74,222,128,0.10); border: 1px solid rgba(74,222,128,0.30); }
+.m-stop.now .m-tag { color: var(--now); background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.40); }
+.m-stop.next .m-tag { color: var(--next); background: rgba(74,184,255,0.10); border: 1px solid rgba(74,184,255,0.35); }
+.m-stop.future .m-tag { color: var(--future); background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.28); }
+.m-title { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 6px; }
+.m-desc { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+
+/* ============ FOOTER ============ */
+.footer-note {
+  margin-top: 100px;
+  text-align: center;
+  color: var(--ink-4);
+  font-size: 12.5px;
+  font-style: italic;
+}
+</style>
+</head>
+<body>
+
+<main>
+  <div class="header">
+    <span class="eyebrow">Roadmap · mayo 2026</span>
+    <h1>Lo construido, lo que sale <em>ahora</em>, y hacia dónde vamos.</h1>
+    <p class="sub">Tres años de tracción real, un trimestre que disponibiliza la capa de inteligencia, y una Serie A que activa Woki Pay como nueva vertical. Después, el POS propio y la expansión continental.</p>
+
+    <div class="legend">
+      <span class="legend-item done"><span class="swatch"></span>Construido</span>
+      <span class="legend-item now"><span class="swatch"></span>Saliendo este Q</span>
+      <span class="legend-item next"><span class="swatch"></span>Serie A · 2027</span>
+      <span class="legend-item future"><span class="swatch"></span>Visión 2028 +</span>
+    </div>
+  </div>
+
+  <!-- ============ ROAD (desktop) ============ -->
+  <div class="road-container">
+
+    <!-- SVG Road -->
+    <svg class="road-svg" viewBox="0 0 1400 760" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <defs>
+        <!-- Built (green) gradient -->
+        <linearGradient id="doneRoadGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#16a34a" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="#4ade80" stop-opacity="0.95"/>
+        </linearGradient>
+        <!-- Now (yellow) gradient -->
+        <linearGradient id="nowRoadGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#4ade80" stop-opacity="0.85"/>
+          <stop offset="50%" stop-color="#fbbf24" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.9"/>
+        </linearGradient>
+        <!-- Future fade -->
+        <linearGradient id="futureRoadGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#4ab8ff" stop-opacity="0.40"/>
+          <stop offset="60%" stop-color="#8b5cf6" stop-opacity="0.30"/>
+          <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.10"/>
+        </linearGradient>
+        <!-- Glow filter -->
+        <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="6"/>
+        </filter>
+        <filter id="strongGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="12"/>
+        </filter>
+      </defs>
+
+      <!-- Path definition shared
+           Stops:
+           s1 (130, 250)  peak
+           s2 (335, 510)  trough
+           s3 (540, 250)  peak
+           s4 (745, 510)  trough  ← HOY
+           s5 (950, 250)  peak
+           s6 (1155, 510) trough
+           s7 (1320, 250) peak  -->
+
+      <!-- ============ ROAD BASE (dark asphalt, full path) ============ -->
+      <path id="roadBase"
+            d="M 130 250
+               C 232 250, 232 510, 335 510
+               C 437 510, 437 250, 540 250
+               C 642 250, 642 510, 745 510
+               C 847 510, 847 250, 950 250
+               C 1052 250, 1052 510, 1155 510
+               C 1257 510, 1257 250, 1320 250"
+            stroke="#0e1830"
+            stroke-width="74"
+            fill="none"
+            stroke-linecap="round"/>
+
+      <!-- Subtle edge highlight on road -->
+      <path d="M 130 250
+               C 232 250, 232 510, 335 510
+               C 437 510, 437 250, 540 250
+               C 642 250, 642 510, 745 510
+               C 847 510, 847 250, 950 250
+               C 1052 250, 1052 510, 1155 510
+               C 1257 510, 1257 250, 1320 250"
+            stroke="#1a2545"
+            stroke-width="78"
+            fill="none"
+            stroke-linecap="round"
+            opacity="0.45"/>
+
+      <!-- Dashed white center line (full path - shows under everything) -->
+      <path d="M 130 250
+               C 232 250, 232 510, 335 510
+               C 437 510, 437 250, 540 250
+               C 642 250, 642 510, 745 510
+               C 847 510, 847 250, 950 250
+               C 1052 250, 1052 510, 1155 510
+               C 1257 510, 1257 250, 1320 250"
+            stroke="rgba(255,255,255,0.30)"
+            stroke-width="2.5"
+            fill="none"
+            stroke-dasharray="18 14"
+            stroke-linecap="round"/>
+
+      <!-- ============ BUILT segment (green colored stripe on top of road) - s1 to s3 ============ -->
+      <path d="M 130 250
+               C 232 250, 232 510, 335 510
+               C 437 510, 437 250, 540 250"
+            stroke="url(#doneRoadGrad)"
+            stroke-width="16"
+            fill="none"
+            stroke-linecap="round"
+            opacity="0.85"/>
+      <!-- glow underneath -->
+      <path d="M 130 250
+               C 232 250, 232 510, 335 510
+               C 437 510, 437 250, 540 250"
+            stroke="#4ade80"
+            stroke-width="36"
+            fill="none"
+            stroke-linecap="round"
+            opacity="0.16"
+            filter="url(#softGlow)"/>
+
+      <!-- ============ HOY segment (yellow transitioning, s3 to s5) ============ -->
+      <path d="M 540 250
+               C 642 250, 642 510, 745 510
+               C 847 510, 847 250, 950 250"
+            stroke="url(#nowRoadGrad)"
+            stroke-width="18"
+            fill="none"
+            stroke-linecap="round"
+            opacity="0.95"/>
+      <!-- strong glow around HOY (s4) -->
+      <path d="M 540 250
+               C 642 250, 642 510, 745 510
+               C 847 510, 847 250, 950 250"
+            stroke="#fbbf24"
+            stroke-width="46"
+            fill="none"
+            stroke-linecap="round"
+            opacity="0.22"
+            filter="url(#strongGlow)"/>
+
+      <!-- ============ FUTURE segment (s5 to s7, dashed gradient) ============ -->
+      <path d="M 950 250
+               C 1052 250, 1052 510, 1155 510
+               C 1257 510, 1257 250, 1320 250"
+            stroke="url(#futureRoadGrad)"
+            stroke-width="10"
+            fill="none"
+            stroke-linecap="round"
+            stroke-dasharray="22 14"
+            opacity="0.85"/>
+
+      <!-- Direction arrow at the end -->
+      <g transform="translate(1320, 250)">
+        <path d="M 0 -16 L 22 0 L 0 16 Z" fill="#8b5cf6" opacity="0.65"/>
+      </g>
+    </svg>
+
+    <!-- ============ STOPS (positioned in % matching SVG coordinates) ============ -->
+
+    <!-- s1: 130/1400 = 9.29%, 250/760 = 32.89% -->
+    <div class="stop done" style="left: 9.29%; top: 32.89%;">
+      <div class="bubble">
+        <svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-9h6v9"/></svg>
+      </div>
+      <div class="label above">
+        <span class="label-tag">2023 – 2024</span>
+        <div class="label-title">Fundación + Reservas</div>
+        <div class="label-desc">Producto core de reservas. Argentina como primer mercado.</div>
+      </div>
+    </div>
+
+    <!-- s2: 335/1400 = 23.93%, 510/760 = 67.11% -->
+    <div class="stop done" style="left: 23.93%; top: 67.11%;">
+      <div class="bubble">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg>
+      </div>
+      <div class="label below">
+        <span class="label-tag">2025</span>
+        <div class="label-title">Marketplace + 5 países</div>
+        <div class="label-desc">wokiapp.com con +1M visitas/mes · 600 restaurantes · cobros variables (no-shows, señas, experiencias, giftcards).</div>
+      </div>
+    </div>
+
+    <!-- s3: 540/1400 = 38.57%, 250/760 = 32.89% -->
+    <div class="stop done" style="left: 38.57%; top: 32.89%;">
+      <div class="bubble">
+        <svg viewBox="0 0 24 24"><path d="M3 7h12"/><path d="M3 12h7"/><path d="M3 17h12"/><circle cx="18" cy="7" r="3"/><circle cx="14" cy="17" r="3"/></svg>
+      </div>
+      <div class="label above">
+        <span class="label-tag">Q1 2026</span>
+        <div class="label-title">Integración Fudo + bridge cerrado</div>
+        <div class="label-desc">Reserva en Woki → mesa en Fudo. Consumo en mesa integrado. $500K ARR. Bridge round cerrado.</div>
+      </div>
+    </div>
+
+    <!-- s4: 745/1400 = 53.21%, 510/760 = 67.11% — HOY -->
+    <div class="stop now" style="left: 53.21%; top: 67.11%;">
+      <div class="bubble">
+        <span class="now-badge">▼ HOY</span>
+        <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 0-4 4c0 1.3.6 2.4 1.5 3.2C7.4 10 6 12 6 14a6 6 0 0 0 12 0c0-2-1.4-4-3.5-4.8A4 4 0 0 0 16 6a4 4 0 0 0-4-4z"/><path d="M9 20h6"/><path d="M10 23h4"/></svg>
+      </div>
+      <div class="label below">
+        <span class="label-tag">Q2 – Q3 2026 · saliendo</span>
+        <div class="label-title">Hospitality Manager · Cartera ABC1 · datos POS</div>
+        <div class="label-desc">Agentes IA + marketing automatizado + Club ABC1 productizado + consumo Fudo visible en guestcenter + integraciones Maxirest, Oracle, Simphony.</div>
+      </div>
+    </div>
+
+    <!-- s5: 950/1400 = 67.86%, 250/760 = 32.89% -->
+    <div class="stop next" style="left: 67.86%; top: 32.89%;">
+      <div class="bubble">
+        <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M7 15h3"/><circle cx="17" cy="15" r="1.5"/></svg>
+      </div>
+      <div class="label above">
+        <span class="label-tag">2027 H1</span>
+        <div class="label-title">Serie A + Woki Pay piloto</div>
+        <div class="label-desc">Lanzamiento de Pay propio. Validación con early adopters. Comisiones y UX competitivas para captar orgánico.</div>
+      </div>
+    </div>
+
+    <!-- s6: 1155/1400 = 82.50%, 510/760 = 67.11% -->
+    <div class="stop next" style="left: 82.50%; top: 67.11%;">
+      <div class="bubble">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="8" cy="14" r="1.5"/><path d="M13 13h5M13 16h3"/></svg>
+      </div>
+      <div class="label below">
+        <span class="label-tag">2027 H2</span>
+        <div class="label-title">Marketplace whitelabel</div>
+        <div class="label-desc">Bancos y entes de turismo como clientes del whitelabel. Beneficios premium del Club ABC1 monetizados.</div>
+      </div>
+    </div>
+
+    <!-- s7: 1320/1400 = 94.29%, 250/760 = 32.89% -->
+    <div class="stop future" style="left: 94.29%; top: 32.89%;">
+      <div class="bubble">
+        <svg viewBox="0 0 24 24"><path d="M4.5 16.5L3 22l5.5-1.5"/><path d="M14 5l5 5"/><path d="M19 5c0 4-3 7-7 8l-3-3c1-4 4-7 8-7 1 0 2 1 2 2z"/><circle cx="14" cy="10" r="1.5"/></svg>
+      </div>
+      <div class="label above">
+        <span class="label-tag">2028 – 2030</span>
+        <div class="label-title">POS propio + Pay default + delivery + España</div>
+        <div class="label-desc">Pay como default en clientes nuevos. POS Woki nativo. Delivery integrado. Expansión a España. Escala continental.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ MOBILE STACK ============ -->
+  <div class="mobile-stack">
+    <div class="m-stop done">
+      <div class="m-bubble"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-9h6v9"/></svg></div>
+      <span class="m-tag">2023 – 2024</span>
+      <div class="m-title">Fundación + Reservas</div>
+      <div class="m-desc">Producto core de reservas. Argentina como primer mercado.</div>
+    </div>
+    <div class="m-stop done">
+      <div class="m-bubble"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg></div>
+      <span class="m-tag">2025</span>
+      <div class="m-title">Marketplace + 5 países</div>
+      <div class="m-desc">wokiapp.com +1M visitas/mes · 600 restaurantes · cobros variables (no-shows, señas, experiencias, giftcards).</div>
+    </div>
+    <div class="m-stop done">
+      <div class="m-bubble"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h12"/><path d="M3 12h7"/><path d="M3 17h12"/><circle cx="18" cy="7" r="3"/><circle cx="14" cy="17" r="3"/></svg></div>
+      <span class="m-tag">Q1 2026</span>
+      <div class="m-title">Integración Fudo + bridge cerrado</div>
+      <div class="m-desc">Reserva → mesa en Fudo. Consumo en mesa integrado. $500K ARR. Bridge round cerrado.</div>
+    </div>
+    <div class="m-stop now">
+      <div class="m-bubble"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4c0 1.3.6 2.4 1.5 3.2C7.4 10 6 12 6 14a6 6 0 0 0 12 0c0-2-1.4-4-3.5-4.8A4 4 0 0 0 16 6a4 4 0 0 0-4-4z"/><path d="M9 20h6"/><path d="M10 23h4"/></svg></div>
+      <span class="m-tag">Q2 – Q3 2026 · HOY</span>
+      <div class="m-title">Hospitality Manager · Cartera ABC1 · datos POS</div>
+      <div class="m-desc">Agentes IA + marketing automatizado + Club ABC1 + consumo Fudo visible en guestcenter + integraciones Maxirest, Oracle, Simphony.</div>
+    </div>
+    <div class="m-stop next">
+      <div class="m-bubble"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M7 15h3"/><circle cx="17" cy="15" r="1.5"/></svg></div>
+      <span class="m-tag">2027 H1</span>
+      <div class="m-title">Serie A + Woki Pay piloto</div>
+      <div class="m-desc">Lanzamiento de Pay propio. Validación con early adopters. Comisiones y UX competitivas.</div>
+    </div>
+    <div class="m-stop next">
+      <div class="m-bubble"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="8" cy="14" r="1.5"/><path d="M13 13h5M13 16h3"/></svg></div>
+      <span class="m-tag">2027 H2</span>
+      <div class="m-title">Marketplace whitelabel</div>
+      <div class="m-desc">Bancos y entes de turismo como clientes. Beneficios premium del Club ABC1 monetizados.</div>
+    </div>
+    <div class="m-stop future">
+      <div class="m-bubble"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5L3 22l5.5-1.5"/><path d="M14 5l5 5"/><path d="M19 5c0 4-3 7-7 8l-3-3c1-4 4-7 8-7 1 0 2 1 2 2z"/><circle cx="14" cy="10" r="1.5"/></svg></div>
+      <span class="m-tag">2028 – 2030</span>
+      <div class="m-title">POS propio + Pay default + delivery + España</div>
+      <div class="m-desc">Pay como default. POS Woki nativo. Delivery integrado. Expansión a España. Escala continental.</div>
+    </div>
+  </div>
+
+  <div class="footer-note">Borrador iterativo · Woki Roadmap mayo 2026</div>
+</main>
+
+</body>
+</html>
